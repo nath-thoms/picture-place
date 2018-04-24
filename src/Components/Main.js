@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import Title from './Title';
 import PhotoWall from './Photowall';
 import AddPhoto from './AddPhoto';
+import { Route } from 'react-router-dom';
 
 class Main extends Component {
     constructor() {
         super()
         this.state = {
-            posts: [],
-            screen: 'photos' //photos, addPhoto
+            posts: []
         }
+
         this.removePhoto = this.removePhoto.bind(this);
-        this.navigate = this.navigate.bind(this);
     }
 
     removePhoto(postRemoved) {
@@ -19,12 +19,6 @@ class Main extends Component {
         this.setState((state) => ({
             posts: state.posts.filter(post => post !== postRemoved)
         }))
-    }
-
-    navigate() {
-        this.setState({
-            screen: 'addPhoto'
-        })
     }
 
     componentDidMount() {
@@ -36,25 +30,19 @@ class Main extends Component {
 
 
     render() {
-        return <div>
-            {
-                this.state.screen === 'photos' && (
-                    <div>
+        return (
 
+            <div>
+                <Route exact path="/" render={() => (
+                    <div>
                         <Title title={'insta-Nath'} />
                         <PhotoWall posts={this.state.posts} onRemovePhoto={this.removePhoto} onNavigate={this.navigate} />
                     </div>
-                )
-            }
+                )} />
 
-            {
-                this.state.screen === 'addPhoto' && (
-                    <div>
-                        <AddPhoto />
-                    </div>
-                )
-            }
-        </div>
+                <Route path="/AddPhoto" component={AddPhoto} />
+            </div>
+        )
     }
 
 }
