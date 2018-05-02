@@ -10,6 +10,7 @@ class AddPhoto extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log(event.target.elements.link.value)
     }
 
     render() {
