@@ -21,6 +21,12 @@ class Main extends Component {
         }))
     }
 
+    addPhoto(postSubmitted) {
+        this.setState(state => ({
+            posts: state.posts.concat([postSubmitted])
+        }))
+    }
+
     componentDidMount() {
         const data = fetchFromDatabase()
         this.setState({
@@ -40,7 +46,12 @@ class Main extends Component {
                     </div>
                 )} />
 
-                <Route path="/AddPhoto" component={AddPhoto} />
+                <Route path="/AddPhoto" render={() => (
+                    <AddPhoto onAddPhoto={(addedPost) => {
+                        console.log(addedPost)
+                        this.addPhoto(addedPost)
+                    }} />
+                )} />
             </div>
         )
     }
