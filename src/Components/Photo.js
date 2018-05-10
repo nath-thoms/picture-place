@@ -2,6 +2,7 @@ import React from 'react';
 import PhotoWall from './Photowall';
 import PropTypes from 'prop-types';
 
+
 function Photo(props) {
     const post = props.post
     return <figure className="figure">
@@ -10,7 +11,7 @@ function Photo(props) {
 
         <div className="button-container">
             <button className="button" onClick={() => {
-                props.onRemovePhoto(post)
+                props.removePost(props.index)
             }} > Remove </button>
         </div>
     </figure>
@@ -18,10 +19,11 @@ function Photo(props) {
 
 Photo.propTypes = {
     post: PropTypes.object.isRequired,
-    onRemovePhoto: PropTypes.func.isRequired
 }
 
 
 
 
-export default Photo
+
+
+export default Photo;
