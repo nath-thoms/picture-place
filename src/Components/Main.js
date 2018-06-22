@@ -31,6 +31,9 @@ class Main extends Component {
     //     })
     // }
 
+    componentDidMount() {
+        this.props.startLoadingPost()
+    }
 
     render() {
         console.log(this.props)
