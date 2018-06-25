@@ -54,7 +54,12 @@ export function startRemovingPost(index, id) {
             dispatch(removePost(index))
         })
     }
+}
 
+export function startAddingComment(comment, postId) {
+    return (dispatch) => {
+        return database.ref('comment/'+postId)
+    }
 }
 
 export function loadPosts(posts) {
