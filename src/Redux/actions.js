@@ -46,7 +46,8 @@ export function startLoadingPost() {
             dispatch(loadPosts(posts))
         }).catch((error) => {
             console.log(error)
-    })
+        })
+    }
 }
 
 export function startRemovingPost(index, id) {
@@ -55,7 +56,8 @@ export function startRemovingPost(index, id) {
             dispatch(removePost(index))
         }).catch((error) => {
             console.log(error)
-    })
+        })
+    }
 }
 
 export function startAddingComment(comment, postId) {
@@ -64,8 +66,29 @@ export function startAddingComment(comment, postId) {
             dispatch(addComment(comment, postId))
         }).catch((error) => {
             console.log(error)
-    })
+        })
+    }
 }
+
+export function startLoadingComments(){
+    return (dispatch) => {
+        return database.ref('comment').once('value').then((snapshot) => {
+            let comments = {}
+            snapshot.forEach((childSnapshot) => {
+                comments[childSnapshot.key] = Object.values(childSnapshot.val())
+            })
+            dispatch(loadComments(comments))
+        })
+    }
+}
+
+export function loadComments(comments) {
+    return {
+        type: 'LOAD_COMMENTS',
+        comments
+    }
+}
+
 
 export function loadPosts(posts) {
     return {

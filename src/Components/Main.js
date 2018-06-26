@@ -11,28 +11,13 @@ class Main extends Component {
         super()
     }
 
-    // removePhoto(postRemoved) {
-    //     console.log(postRemoved.description)
-    //     this.setState((state) => ({
-    //         posts: state.posts.filter(post => post !== postRemoved)
-    //     }))
-    // }
-
-    // addPhoto(postSubmitted) {
-    //     this.setState(state => ({
-    //         posts: state.posts.concat([postSubmitted])
-    //     }))
-    // }
-
-    // componentDidMount() {
-    //     const data = fetchFromDatabase()
-    //     this.setState({
-    //         posts: data
-    //     })
-    // }
+  state = { loading: true }
 
     componentDidMount() {
-        this.props.startLoadingPost()
+        this.props.startLoadingPost().then(() => {
+            this.setState({loading: false})
+        })
+        this.props.startLoadingComments()
     }
 
     render() {
@@ -54,7 +39,7 @@ class Main extends Component {
                 )} />
 
                 <Route path="/single/:id" render = {(params) => (
-                    <Single  {...this.props} {...params}/>
+                    <Single loading={this.state.loading} {...this.props} {...params}/>
                 )}/>
 
             </div>
